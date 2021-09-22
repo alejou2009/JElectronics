@@ -32,8 +32,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Usuarios.findByNombre", query = "SELECT u FROM Usuarios u WHERE u.nombre = :nombre")
     , @NamedQuery(name = "Usuarios.findByApellido", query = "SELECT u FROM Usuarios u WHERE u.apellido = :apellido")
     , @NamedQuery(name = "Usuarios.findByCedula", query = "SELECT u FROM Usuarios u WHERE u.cedula = :cedula")
-    , @NamedQuery(name = "Usuarios.findByContrase\u00f1a", query = "SELECT u FROM Usuarios u WHERE u.contrase\u00f1a = :contrase\u00f1a")
-    , @NamedQuery(name = "Usuarios.findByCorreo", query = "SELECT u FROM Usuarios u WHERE u.correo = :correo")})
+    , @NamedQuery(name = "Usuarios.findByContrasena", query = "SELECT u FROM Usuarios u WHERE u.contrase\u00f1a = :contrase\u00f1a")
+    , @NamedQuery(name = "Usuarios.findByCorreo", query = "SELECT u FROM Usuarios u WHERE u.correo = :correo")
+    , @NamedQuery(name = "Usuarios.findByRol", query = "SELECT u FROM Usuarios u WHERE u.rol = :rol")})
 public class Usuarios implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -59,14 +60,19 @@ public class Usuarios implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 80)
-    @Column(name = "contrase\u00f1a")
+    @Column(name = "contrasena")
     private String contraseña;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 80)
     @Column(name = "correo")
     private String correo;
-
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 80)
+    @Column(name = "rol")
+    private String rol;
+    
     public Usuarios() {
     }
 
@@ -74,13 +80,14 @@ public class Usuarios implements Serializable {
         this.id = id;
     }
 
-    public Usuarios(Integer id, String nombre, String apellido, int cedula, String contraseña, String correo) {
+    public Usuarios(Integer id, String nombre, String apellido, int cedula, String contrasena, String correo, String rol) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.cedula = cedula;
-        this.contraseña = contraseña;
+        this.contraseña = contrasena;
         this.correo = correo;
+        this.rol = rol;
     }
 
     public Integer getId() {
@@ -115,12 +122,12 @@ public class Usuarios implements Serializable {
         this.cedula = cedula;
     }
 
-    public String getContraseña() {
+    public String getContrasena() {
         return contraseña;
     }
 
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public void setContrasena(String contrasena) {
+        this.contraseña = contrasena;
     }
 
     public String getCorreo() {
@@ -130,6 +137,16 @@ public class Usuarios implements Serializable {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+    
+    
 
     @Override
     public int hashCode() {

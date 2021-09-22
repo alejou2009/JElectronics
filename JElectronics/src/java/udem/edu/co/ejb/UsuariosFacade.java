@@ -33,19 +33,20 @@ public class UsuariosFacade extends AbstractFacade<Usuarios> {
     public Usuarios loginWeb(Usuarios usuarioAux){
         Usuarios loginResponse=null;
         String queryLogin;
+        System.out.println(usuarioAux.getCorreo());
         try{
-            queryLogin= "FROM jelectronics.usuarios l WHERE l.user = ?1 and l.password = ?2";//Busqueda de los datos que se ingresan en la base de datos
+            queryLogin= "FROM Usuarios l WHERE l.correo = ?1 and l.contraseña = ?2";//Busqueda de los datos que se ingresan en la base de datos
             Query query= em.createQuery(queryLogin);
             query.setParameter(1, usuarioAux.getCorreo());
-            query.setParameter(2, usuarioAux.getContraseña());
+            query.setParameter(2, usuarioAux.getContrasena());
+            System.out.println(query.getResultList());
             List<Usuarios> lista = query.getResultList();
             if (lista.isEmpty()) {
                 return null;
             }else{
                 System.out.println("encontrado");
                 return lista.get(0);
-            }            
-            
+            }        
         }catch(Exception e){
             System.out.println("error "+e.getMessage());
         }

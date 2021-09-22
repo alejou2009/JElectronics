@@ -1,6 +1,5 @@
 package udem.edu.co.controller;
 
-import udem.edu.co.entities.Usuarios;
 import udem.edu.co.controller.util.JsfUtil;
 import udem.edu.co.controller.util.PaginationHelper;
 import udem.edu.co.ejb.UsuariosFacade;
@@ -18,6 +17,7 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import udem.edu.co.entities.Usuarios;
 
 @Named("usuariosController")
 @RequestScoped
@@ -29,23 +29,26 @@ public class UsuariosController implements Serializable {
     private udem.edu.co.ejb.UsuariosFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
-    private Usuarios usuarioAux;
+    private Usuarios usuarioAux = new Usuarios();
+    private Usuarios loggedUser = new Usuarios();
 
     public UsuariosController() {
     }
     
     public String createLogin() {
         System.out.println("Mi correo es: "+getSelected().getCorreo());
-        System.out.println("La contraseña es: "+getSelected().getContraseña());
+        System.out.println("La contraseña es: "+getSelected().getContrasena());
+       
+        usuarioAux.setContrasena(getSelected().getContrasena());
+        usuarioAux.setCorreo(getSelected().getCorreo());
         
-        usuarioAux = getEjbFacade().loginWeb(usuarioAux);
+        loggedUser = getEjbFacade().loginWeb(usuarioAux);
         
-        if(usuarioAux !=null){
-            
+        if(loggedUser !=null){
             return "index.xhtml";
         }else{
             return "login.xhtml";
-        }   
+        } 
     }
     
     public Usuarios getLogin() {

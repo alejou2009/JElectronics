@@ -9,7 +9,7 @@
         <h:head>
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-                <title>PrimeFaces</title>
+                <title>#{bundle.TittleLogin}</title>
             </f:facet>
         </h:head>
 
@@ -17,37 +17,20 @@
 
             <p:layout fullPage="true">
 
-                <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
-                    Header
-                </p:layoutUnit>
-
-                <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
-                    Footer
-                </p:layoutUnit>
-
-                <p:layoutUnit position="west" size="175" header="Left" collapsible="true">
-                    <p:menu>
-                        <p:submenu label="Resources">
-                            <p:menuitem value="Demo" url="http://www.primefaces.org/showcase-labs/ui/home.jsf" />
-                            <p:menuitem value="Documentation" url="http://www.primefaces.org/documentation.html" />
-                            <p:menuitem value="Forum" url="http://forum.primefaces.org/" />
-                            <p:menuitem value="Themes" url="http://www.primefaces.org/themes.html" />
-
-                        </p:submenu>
-
-                    </p:menu>
-                </p:layoutUnit>
-
                 <p:layoutUnit position="center">
                     <h:form>
-                        <h1>#{bundle.CreateUsuariosTitle}</h1>
-                        <h:panelGrid style="align:center" id ="panel" columns="2" border="0"
+                        <div style="display:flex;align-items: center;justify-content: center">
+                            <h1>#{bundle.TittleLogin}</h1>
+                        </div>
+                        <h:panelGrid style="display:flex;align-items: center;justify-content: center" id ="panel" columns="2" border="0"
                                      cellpadding="10" cellspacing="1">
-                            <h:outputLabel id="LabelUser1" value="USER"></h:outputLabel>
+                            <h:outputLabel id="LabelUser1" value="Correo:"></h:outputLabel>
                             <p:inputText id="LabelUser" value="#{usuariosController.selected.correo}"></p:inputText>
-                            <h:outputLabel id="LabelPass" value="PASSWORD"></h:outputLabel>
-                            <h:inputSecret id="password" required="true" value="#{usuariosController.selected.contraseña}"></h:inputSecret>
-                            <p:commandButton action="#{usuariosController.createLogin()}" value="Enviar"></p:commandButton>
+                            <h:outputLabel id="LabelPass" value="Contraseña:"></h:outputLabel>
+                            <h:inputSecret id="password" required="true" value="#{usuariosController.selected.contrasena}"></h:inputSecret>
+                            <div style="display:flex;align-items: center;justify-content: center"> 
+                                <p:commandButton action="#{usuariosController.createLogin()}" value="Enviar"></p:commandButton>
+                            </div>
                             <h:message for="user"></h:message>
                         </h:panelGrid>    
                     </h:form>
