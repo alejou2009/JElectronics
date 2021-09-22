@@ -15,18 +15,18 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditUsuariosLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{usuariosController.selected.id}" title="#{bundle.EditUsuariosTitle_id}" required="true" requiredMessage="#{bundle.EditUsuariosRequiredMessage_id}"/>
                     <h:outputLabel value="#{bundle.EditUsuariosLabel_nombre}" for="nombre" />
                     <h:inputText id="nombre" value="#{usuariosController.selected.nombre}" title="#{bundle.EditUsuariosTitle_nombre}" required="true" requiredMessage="#{bundle.EditUsuariosRequiredMessage_nombre}"/>
                     <h:outputLabel value="#{bundle.EditUsuariosLabel_apellido}" for="apellido" />
                     <h:inputText id="apellido" value="#{usuariosController.selected.apellido}" title="#{bundle.EditUsuariosTitle_apellido}" required="true" requiredMessage="#{bundle.EditUsuariosRequiredMessage_apellido}"/>
                     <h:outputLabel value="#{bundle.EditUsuariosLabel_cedula}" for="cedula" />
                     <h:inputText id="cedula" value="#{usuariosController.selected.cedula}" title="#{bundle.EditUsuariosTitle_cedula}" required="true" requiredMessage="#{bundle.EditUsuariosRequiredMessage_cedula}"/>
-                    <h:outputLabel value="#{bundle.EditUsuariosLabel_contraseña}" for="contraseña" />
-                    <h:inputText id="contraseña" value="#{usuariosController.selected.contraseña}" title="#{bundle.EditUsuariosTitle_contraseña}" required="true" requiredMessage="#{bundle.EditUsuariosRequiredMessage_contraseña}"/>
+                    <h:outputLabel value="#{bundle.EditUsuariosLabel_contrasena}" for="contrasena" />
+                    <h:inputText id="contraseña" value="#{usuariosController.selected.contrasena}" title="#{bundle.EditUsuariosTitle_contrasena}" required="true" requiredMessage="#{bundle.EditUsuariosRequiredMessage_contrasena}"/>
                     <h:outputLabel value="#{bundle.EditUsuariosLabel_correo}" for="correo" />
                     <h:inputText id="correo" value="#{usuariosController.selected.correo}" title="#{bundle.EditUsuariosTitle_correo}" required="true" requiredMessage="#{bundle.EditUsuariosRequiredMessage_correo}"/>
+                    <h:outputLabel value="#{bundle.EditUsuariosLabel_rol}" for="rol" />
+                    <h:inputText id="rol" value="#{usuariosController.selected.rol}" title="#{bundle.EditUsuariosTitle_rol}" required="true" requiredMessage="#{bundle.EditUsuariosRequiredMessage_rol}"/>
                 </h:panelGrid>
                 <h:commandLink action="#{usuariosController.update}" value="#{bundle.EditUsuariosSaveLink}"/>
                 <br />
