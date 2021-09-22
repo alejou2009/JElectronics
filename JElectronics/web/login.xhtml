@@ -47,7 +47,7 @@
                             <p:inputText id="LabelUser" value="#{usuariosController.selected.correo}"></p:inputText>
                             <h:outputLabel id="LabelPass" value="PASSWORD"></h:outputLabel>
                             <h:inputSecret id="password" required="true" value="#{usuariosController.selected.contraseña}"></h:inputSecret>
-                            <p:commandButton action="#{usuariosController.login()}" value="Enviar"></p:commandButton>
+                            <p:commandButton action="#{usuariosController.createLogin()}" value="Enviar"></p:commandButton>
                             <h:message for="user"></h:message>
                         </h:panelGrid>    
                     </h:form>

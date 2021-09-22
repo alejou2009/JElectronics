@@ -8,8 +8,9 @@ package udem.edu.co.ejb;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import udem.edu.co.entities.Usuarios;
-
+import java.util.List;
 /**
  *
  * @author User
@@ -29,4 +30,25 @@ public class UsuariosFacade extends AbstractFacade<Usuarios> {
         super(Usuarios.class);
     }
     
+    public Usuarios loginWeb(Usuarios usuarioAux){
+        Usuarios loginResponse=null;
+        String queryLogin;
+        try{
+            queryLogin= "FROM jelectronics.usuarios l WHERE l.user = ?1 and l.password = ?2";//Busqueda de los datos que se ingresan en la base de datos
+            Query query= em.createQuery(queryLogin);
+            query.setParameter(1, usuarioAux.getCorreo());
+            query.setParameter(2, usuarioAux.getContraseña());
+            List<Usuarios> lista = query.getResultList();
+            if (lista.isEmpty()) {
+                return null;
+            }else{
+                System.out.println("encontrado");
+                return lista.get(0);
+            }            
+            
+        }catch(Exception e){
+            System.out.println("error "+e.getMessage());
+        }
+        return loginResponse;
+    }
 }

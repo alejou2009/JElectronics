@@ -8,6 +8,7 @@ import udem.edu.co.ejb.UsuariosFacade;
 import java.io.Serializable;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
@@ -19,7 +20,7 @@ import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
 @Named("usuariosController")
-@SessionScoped
+@RequestScoped
 public class UsuariosController implements Serializable {
 
     private Usuarios current;
@@ -28,14 +29,42 @@ public class UsuariosController implements Serializable {
     private udem.edu.co.ejb.UsuariosFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    private Usuarios usuarioAux;
 
     public UsuariosController() {
     }
-
-    public String login(){
+    
+    public String createLogin() {
         System.out.println("Mi correo es: "+getSelected().getCorreo());
         System.out.println("La contraseña es: "+getSelected().getContraseña());
-        return "index.xhtml";
+        
+        usuarioAux = getEjbFacade().loginWeb(usuarioAux);
+        
+        if(usuarioAux !=null){
+            
+            return "index.xhtml";
+        }else{
+            return "login.xhtml";
+        }   
+    }
+    
+    public Usuarios getLogin() {
+        if (usuarioAux == null) {
+            usuarioAux = new Usuarios();
+        }
+        return usuarioAux;
+    }
+
+    public void setLogin(Usuarios usuarioAux) {
+        this.usuarioAux = usuarioAux;
+    }
+    
+    public UsuariosFacade getEjbFacade() {
+        return ejbFacade;
+    }
+
+    public void setEjbFacade(UsuariosFacade ejbFacade) {
+        this.ejbFacade = ejbFacade;
     }
     
     public Usuarios getSelected() {
