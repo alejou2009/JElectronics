@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
@@ -73,6 +74,51 @@
                             <h:commandLink action="#{usuariosController.destroy}" value="#{bundle.ListUsuariosDestroyLink}"/>
                         </h:column>
                     </h:dataTable>
+
+                    <div class="card">
+                        <p:dataTable id="products" var="item" value="#{usuariosController.items}">
+                            <f:facet name="header">
+                                <div class="p-d-flex p-jc-between p-ai-center">
+                                    Lista de Usuarios
+
+                                    <div style="display: flex; justify-content: space-between">
+                                        <p:commandButton id="toggler" type="button" value="Columnas" icon="pi pi-align-justify"/>
+                                        <p:columnToggler datasource="products" trigger="toggler"/>
+                                    </div>
+                                </div>
+                            </f:facet>
+
+                            <p:column headerText="ID">
+                                <h:outputText value="#{item.id}" />
+                            </p:column>
+
+                            <p:column headerText="Nombre">
+                                <h:outputText value="#{item.nombre}" />
+                            </p:column>
+
+                            <p:column headerText="Apellido">
+                                <h:outputText value="#{item.apellido}" />
+                            </p:column>
+
+                            <p:column headerText="Cedula">
+                                <h:outputText value="#{item.cedula}" />
+                            </p:column>
+
+                            <p:column headerText="Contraseña">
+                                <h:outputText value="#{item.contrasena}"/>
+                            </p:column>
+                            
+                            <p:column headerText="Correo">
+                                <h:outputText value="#{item.correo}"/>
+                            </p:column>
+                            
+                            <p:column headerText="Rol">
+                                <h:outputText value="#{item.rol}"/>
+                            </p:column>
+                            
+                        </p:dataTable>
+                    </div>
+
                 </h:panelGroup>
                 <br />
                 <h:commandLink action="#{usuariosController.prepareCreate}" value="#{bundle.ListUsuariosCreateLink}"/>

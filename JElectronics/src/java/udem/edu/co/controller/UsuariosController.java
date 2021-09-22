@@ -43,8 +43,9 @@ public class UsuariosController implements Serializable {
         usuarioAux.setCorreo(getSelected().getCorreo());
         
         loggedUser = getEjbFacade().loginWeb(usuarioAux);
+        System.out.println(loggedUser.getRol());
         
-        if(loggedUser !=null){
+        if(loggedUser !=null && loggedUser.getRol().equals("admin")){
             return "index.xhtml";
         }else{
             return "login.xhtml";
