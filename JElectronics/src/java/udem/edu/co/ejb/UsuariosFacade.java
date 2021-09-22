@@ -33,13 +33,12 @@ public class UsuariosFacade extends AbstractFacade<Usuarios> {
     public Usuarios loginWeb(Usuarios usuarioAux){
         Usuarios loginResponse=null;
         String queryLogin;
-        System.out.println(usuarioAux.getCorreo());
         try{
             queryLogin= "FROM Usuarios l WHERE l.correo = ?1 and l.contraseña = ?2";//Busqueda de los datos que se ingresan en la base de datos
             Query query= em.createQuery(queryLogin);
             query.setParameter(1, usuarioAux.getCorreo());
             query.setParameter(2, usuarioAux.getContrasena());
-            System.out.println(query.getResultList());
+            System.out.println(query.getSingleResult());
             List<Usuarios> lista = query.getResultList();
             if (lista.isEmpty()) {
                 return null;

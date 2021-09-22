@@ -20,67 +20,11 @@
                     <h:outputText value="#{usuariosController.pagination.pageFirstItem + 1}..#{usuariosController.pagination.pageLastItem + 1}/#{usuariosController.pagination.itemsCount}"/>&nbsp;
                     <h:commandLink action="#{usuariosController.previous}" value="#{bundle.Previous} #{usuariosController.pagination.pageSize}" rendered="#{usuariosController.pagination.hasPreviousPage}"/>&nbsp;
                     <h:commandLink action="#{usuariosController.next}" value="#{bundle.Next} #{usuariosController.pagination.pageSize}" rendered="#{usuariosController.pagination.hasNextPage}"/>&nbsp;
-                    <h:dataTable value="#{usuariosController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUsuariosTitle_id}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.id}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUsuariosTitle_nombre}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.nombre}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUsuariosTitle_apellido}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.apellido}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUsuariosTitle_cedula}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.cedula}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUsuariosTitle_contraseña}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.contrasena}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUsuariosTitle_correo}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.correo}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUsuariosTitle_rol}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.rol}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
-                            </f:facet>
-                            <h:commandLink action="#{usuariosController.prepareView}" value="#{bundle.ListUsuariosViewLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{usuariosController.prepareEdit}" value="#{bundle.ListUsuariosEditLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{usuariosController.destroy}" value="#{bundle.ListUsuariosDestroyLink}"/>
-                        </h:column>
-                    </h:dataTable>
-
                     <div class="card">
                         <p:dataTable id="products" var="item" value="#{usuariosController.items}">
                             <f:facet name="header">
                                 <div class="p-d-flex p-jc-between p-ai-center">
-                                    Lista de Usuarios
-
+                                    Usuarios
                                     <div style="display: flex; justify-content: space-between">
                                         <p:commandButton id="toggler" type="button" value="Columnas" icon="pi pi-align-justify"/>
                                         <p:columnToggler datasource="products" trigger="toggler"/>
@@ -107,15 +51,21 @@
                             <p:column headerText="Contraseña">
                                 <h:outputText value="#{item.contrasena}"/>
                             </p:column>
-                            
+
                             <p:column headerText="Correo">
                                 <h:outputText value="#{item.correo}"/>
                             </p:column>
-                            
+
                             <p:column headerText="Rol">
                                 <h:outputText value="#{item.rol}"/>
                             </p:column>
-                            
+                            <p:column headerText="Modificadores">
+                                <h:commandLink action="#{usuariosController.prepareView}" value="#{bundle.ListUsuariosViewLink}"/>
+                                <h:outputText value=" "/>
+                                <h:commandLink action="#{usuariosController.prepareEdit}" value="#{bundle.ListUsuariosEditLink}"/>
+                                <h:outputText value=" "/>
+                                <h:commandLink action="#{usuariosController.destroy}" value="#{bundle.ListUsuariosDestroyLink}"/>
+                            </p:column>
                         </p:dataTable>
                     </div>
 

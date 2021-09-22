@@ -47,6 +47,8 @@ public class UsuariosController implements Serializable {
         
         if(loggedUser !=null && loggedUser.getRol().equals("admin")){
             return "index.xhtml";
+        }else if(loggedUser !=null && loggedUser.getRol().equals("user")){
+            return "login.xhtml";
         }else{
             return "login.xhtml";
         } 
