@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateVentasTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateVentasLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{ventasController.selected.id}" title="#{bundle.CreateVentasTitle_id}" required="true" requiredMessage="#{bundle.CreateVentasRequiredMessage_id}"/>
+                    <h:outputLabel value="#{bundle.CreateVentasLabel_precio}" for="precio" />
+                    <h:inputText id="precio" value="#{ventasController.selected.precio}" title="#{bundle.CreateVentasTitle_precio}" required="true" requiredMessage="#{bundle.CreateVentasRequiredMessage_precio}"/>
+                    <h:outputLabel value="#{bundle.CreateVentasLabel_cliente}" for="cliente" />
+                    <h:inputText id="cliente" value="#{ventasController.selected.cliente}" title="#{bundle.CreateVentasTitle_cliente}" required="true" requiredMessage="#{bundle.CreateVentasRequiredMessage_cliente}"/>
+                    <h:outputLabel value="#{bundle.CreateVentasLabel_correo}" for="correo" />
+                    <h:inputText id="correo" value="#{ventasController.selected.correo}" title="#{bundle.CreateVentasTitle_correo}" required="true" requiredMessage="#{bundle.CreateVentasRequiredMessage_correo}"/>
+                    <h:outputLabel value="#{bundle.CreateVentasLabel_idproducto}" for="idproducto" />
+                    <h:inputText id="idproducto" value="#{ventasController.selected.idproducto}" title="#{bundle.CreateVentasTitle_idproducto}" required="true" requiredMessage="#{bundle.CreateVentasRequiredMessage_idproducto}"/>
+                    <h:outputLabel value="#{bundle.CreateVentasLabel_producto}" for="producto" />
+                    <h:inputText id="producto" value="#{ventasController.selected.producto}" title="#{bundle.CreateVentasTitle_producto}" required="true" requiredMessage="#{bundle.CreateVentasRequiredMessage_producto}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{ventasController.create}" value="#{bundle.CreateVentasSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{ventasController.prepareList}" value="#{bundle.CreateVentasShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateVentasIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

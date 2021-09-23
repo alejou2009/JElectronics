@@ -1,17 +1,15 @@
 package udem.edu.co.controller;
 
-import java.io.IOException;
-import udem.edu.co.entities.Productos;
+import udem.edu.co.entities.Ventas;
 import udem.edu.co.controller.util.JsfUtil;
 import udem.edu.co.controller.util.PaginationHelper;
-import udem.edu.co.ejb.ProductosFacade;
+import udem.edu.co.ejb.VentasFacade;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -19,58 +17,30 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
-import javax.faces.bean.ViewScoped;
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
-import javax.faces.context.ExternalContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import udem.edu.co.entities.Usuarios;
 
-@Named("productosController")
-@RequestScoped
-public class ProductosController implements Serializable {
+@Named("ventasController")
+@SessionScoped
+public class VentasController implements Serializable {
 
-    private Productos current;
+    private Ventas current;
     private DataModel items = null;
     @EJB
-    private udem.edu.co.ejb.ProductosFacade ejbFacade;
+    private udem.edu.co.ejb.VentasFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
-    /*@ManagedProperty("#{Session}")
-    private UsuariosController loginController;
-    */
-    public ProductosController() {
+
+    public VentasController() {
     }
 
-    /*@PostConstruct
-    public void init() {
-        Usuarios login = loginController.getLogin();
-        if (login == null) {
-            FacesContext context = FacesContext.getCurrentInstance();
-            ExternalContext extContext = context.getExternalContext();
-            try {
-                ((HttpSession) extContext.getSession(false)).invalidate();
-                ((HttpServletRequest) extContext.getRequest()).logout();
-
-                extContext.redirect("login.xhtml");
-            } catch (IOException ex) {
-                System.out.println("ioe" + ex.getMessage());
-            } catch (Exception ex) {
-                System.out.println("ioe" + ex.getMessage());
-            }
-        }
-    }*/
-
-    public Productos getSelected() {
+    public Ventas getSelected() {
         if (current == null) {
-            current = new Productos();
+            current = new Ventas();
             selectedItemIndex = -1;
         }
         return current;
     }
 
-    private ProductosFacade getFacade() {
+    private VentasFacade getFacade() {
         return ejbFacade;
     }
 
@@ -92,38 +62,31 @@ public class ProductosController implements Serializable {
         return pagination;
     }
 
-    public String prepareUserList() {
-        recreateModel();
-        return "ListUser";
-    }
-    
-    public String prepareAdminList() {
+    public String prepareList() {
         recreateModel();
         return "List";
     }
 
-    public String prepareComprar() {
-        current = (Productos) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "Comprar";
-    }
-    
     public String prepareView() {
-        current = (Productos) getItems().getRowData();
+        current = (Ventas) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
     public String prepareCreate() {
-        current = new Productos();
+        current = new Ventas();
         selectedItemIndex = -1;
         return "Create";
+    }
+    
+    public void prepareCreateVenta() {
+        
     }
 
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ProductosCreated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("VentasCreated"));
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -132,19 +95,15 @@ public class ProductosController implements Serializable {
     }
 
     public String prepareEdit() {
-        current = (Productos) getItems().getRowData();
+        current = (Ventas) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
-    }
-    
-    public void prepareEditProducto(){
-        
     }
 
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ProductosUpdated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("VentasUpdated"));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -153,7 +112,7 @@ public class ProductosController implements Serializable {
     }
 
     public String destroy() {
-        current = (Productos) getItems().getRowData();
+        current = (Ventas) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
@@ -177,7 +136,7 @@ public class ProductosController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ProductosDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("VentasDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
@@ -233,21 +192,21 @@ public class ProductosController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    public Productos getProductos(java.lang.Integer id) {
+    public Ventas getVentas(java.lang.Integer id) {
         return ejbFacade.find(id);
     }
 
-    @FacesConverter(forClass = Productos.class)
-    public static class ProductosControllerConverter implements Converter {
+    @FacesConverter(forClass = Ventas.class)
+    public static class VentasControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            ProductosController controller = (ProductosController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "productosController");
-            return controller.getProductos(getKey(value));
+            VentasController controller = (VentasController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "ventasController");
+            return controller.getVentas(getKey(value));
         }
 
         java.lang.Integer getKey(String value) {
@@ -267,11 +226,11 @@ public class ProductosController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Productos) {
-                Productos o = (Productos) object;
+            if (object instanceof Ventas) {
+                Ventas o = (Ventas) object;
                 return getStringKey(o.getId());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Productos.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Ventas.class.getName());
             }
         }
 
