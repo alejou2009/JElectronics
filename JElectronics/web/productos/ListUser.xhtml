@@ -57,21 +57,16 @@
                             </p:column>
 
                             <p:column headerText="Opciones">
-                                <h:commandLink action="#{productosController.prepareView}" value="#{bundle.ListProductosViewLink}"/>
-                                <h:outputText value=" "/>
-                                <h:commandLink action="#{productosController.prepareEdit}" value="#{bundle.ListProductosEditLink}"/>
-                                <h:outputText value=" "/>
-                                <h:commandLink action="#{productosController.destroy}" value="#{bundle.ListProductosDestroyLink}"/>
+                                <h:commandLink action="#{productosController.prepareComprar}" value="#{bundle.ListProductosComprarLink}"/>
                             </p:column>
                         </p:dataTable>
                     </div>
                 </h:panelGroup>
                 <br />
-                <h:commandLink action="#{productosController.prepareCreate}" value="#{bundle.ListProductosCreateLink}"/>
                 <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ListProductosIndexLink}"/>
+                <h:link outcome="/indexUser" value="#{bundle.ListProductosIndexLink}"/>
             </h:form>
         </ui:define>
     </ui:composition>
 </html>
+

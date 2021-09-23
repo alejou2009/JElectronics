@@ -92,11 +92,22 @@ public class ProductosController implements Serializable {
         return pagination;
     }
 
-    public String prepareList() {
+    public String prepareUserList() {
+        recreateModel();
+        return "ListUser";
+    }
+    
+    public String prepareAdminList() {
         recreateModel();
         return "List";
     }
 
+    public String prepareComprar() {
+        current = (Productos) getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        return "Comprar";
+    }
+    
     public String prepareView() {
         current = (Productos) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();

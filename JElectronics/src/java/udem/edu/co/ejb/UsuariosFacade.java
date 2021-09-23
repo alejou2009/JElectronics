@@ -34,7 +34,7 @@ public class UsuariosFacade extends AbstractFacade<Usuarios> {
         Usuarios loginResponse=null;
         String queryLogin;
         try{
-            queryLogin= "FROM Usuarios l WHERE l.correo = ?1 and l.contraseña = ?2";//Busqueda de los datos que se ingresan en la base de datos
+            queryLogin= "FROM Usuarios l WHERE l.correo = ?1 and l.contrasena = ?2";//Busqueda de los datos que se ingresan en la base de datos
             Query query= em.createQuery(queryLogin);
             query.setParameter(1, usuarioAux.getCorreo());
             query.setParameter(2, usuarioAux.getContrasena());

@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Usuarios.findByNombre", query = "SELECT u FROM Usuarios u WHERE u.nombre = :nombre")
     , @NamedQuery(name = "Usuarios.findByApellido", query = "SELECT u FROM Usuarios u WHERE u.apellido = :apellido")
     , @NamedQuery(name = "Usuarios.findByCedula", query = "SELECT u FROM Usuarios u WHERE u.cedula = :cedula")
-    , @NamedQuery(name = "Usuarios.findByContrasena", query = "SELECT u FROM Usuarios u WHERE u.contrase\u00f1a = :contrase\u00f1a")
+    , @NamedQuery(name = "Usuarios.findByContrasena", query = "SELECT u FROM Usuarios u WHERE u.contrasena = :contrasena")
     , @NamedQuery(name = "Usuarios.findByCorreo", query = "SELECT u FROM Usuarios u WHERE u.correo = :correo")
     , @NamedQuery(name = "Usuarios.findByRol", query = "SELECT u FROM Usuarios u WHERE u.rol = :rol")})
 public class Usuarios implements Serializable {
@@ -61,7 +61,7 @@ public class Usuarios implements Serializable {
     @NotNull
     @Size(min = 1, max = 80)
     @Column(name = "contrasena")
-    private String contraseña;
+    private String contrasena;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 80)
@@ -85,7 +85,7 @@ public class Usuarios implements Serializable {
         this.nombre = nombre;
         this.apellido = apellido;
         this.cedula = cedula;
-        this.contraseña = contrasena;
+        this.contrasena = contrasena;
         this.correo = correo;
         this.rol = rol;
     }
@@ -123,11 +123,11 @@ public class Usuarios implements Serializable {
     }
 
     public String getContrasena() {
-        return contraseña;
+        return contrasena;
     }
 
     public void setContrasena(String contrasena) {
-        this.contraseña = contrasena;
+        this.contrasena = contrasena;
     }
 
     public String getCorreo() {

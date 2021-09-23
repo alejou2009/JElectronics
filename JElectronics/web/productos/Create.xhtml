@@ -15,8 +15,6 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateProductosLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{productosController.selected.id}" title="#{bundle.CreateProductosTitle_id}" required="true" requiredMessage="#{bundle.CreateProductosRequiredMessage_id}"/>
                     <h:outputLabel value="#{bundle.CreateProductosLabel_tipo}" for="tipo" />
                     <h:inputText id="tipo" value="#{productosController.selected.tipo}" title="#{bundle.CreateProductosTitle_tipo}" required="true" requiredMessage="#{bundle.CreateProductosRequiredMessage_tipo}"/>
                     <h:outputLabel value="#{bundle.CreateProductosLabel_nombre}" for="nombre" />
@@ -32,7 +30,7 @@
                 <h:commandLink action="#{productosController.create}" value="#{bundle.CreateProductosSaveLink}" />
                 <br />
                 <br />
-                <h:commandLink action="#{productosController.prepareList}" value="#{bundle.CreateProductosShowAllLink}" immediate="true"/>
+                <h:commandLink action="#{productosController.prepareAdminList}" value="#{bundle.CreateProductosShowAllLink}" immediate="true"/>
                 <br />
                 <br />
                 <h:link outcome="/index" value="#{bundle.CreateProductosIndexLink}"/>

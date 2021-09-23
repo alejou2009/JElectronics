@@ -31,15 +31,10 @@
                 <br />
                 <h:commandLink action="#{productosController.destroyAndView}" value="#{bundle.ViewProductosDestroyLink}"/>
                 <br />
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewProductosEditLink}"/>
-                <br />
-                <h:commandLink action="#{productosController.prepareCreate}" value="#{bundle.ViewProductosCreateLink}" />
-                <br />
-                <h:commandLink action="#{productosController.prepareAdminList}" value="#{bundle.ViewProductosShowAllLink}"/>
+                <h:commandLink action="#{productosController.prepareUserList}" value="#{bundle.ViewProductosShowAllLink}"/>
                 <br />
                 <br />
-                <h:link outcome="/index" value="#{bundle.ViewProductosIndexLink}"/>
+                <h:link outcome="/indexUser" value="#{bundle.ViewProductosComprarIndexLink}"/>
 
             </h:form>
         </ui:define>
