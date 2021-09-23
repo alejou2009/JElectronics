@@ -1,15 +1,17 @@
 package udem.edu.co.controller;
 
+import java.io.IOException;
+import udem.edu.co.entities.Productos;
 import udem.edu.co.controller.util.JsfUtil;
 import udem.edu.co.controller.util.PaginationHelper;
-import udem.edu.co.ejb.UsuariosFacade;
+import udem.edu.co.ejb.ProductosFacade;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -17,77 +19,58 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.faces.bean.ViewScoped;
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
+import javax.faces.context.ExternalContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import udem.edu.co.entities.Usuarios;
 
-@Named("usuariosController")
+@Named("productosController")
 @RequestScoped
-public class UsuariosController implements Serializable {
+public class ProductosController implements Serializable {
 
-    private Usuarios current;
+    private Productos current;
     private DataModel items = null;
     @EJB
-    private udem.edu.co.ejb.UsuariosFacade ejbFacade;
+    private udem.edu.co.ejb.ProductosFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
-    private Usuarios usuarioAux = new Usuarios();
-    private Usuarios loggedUser = new Usuarios();
+    /*@ManagedProperty("#{Session}")
+    private UsuariosController loginController;
+    */
+    public ProductosController() {
+    }
 
-    public UsuariosController() {
-    }
-    
-    public String createLogin() {
-        System.out.println("Mi correo es: "+getSelected().getCorreo());
-        System.out.println("La contraseña es: "+getSelected().getContrasena());
-       
-        usuarioAux.setContrasena(getSelected().getContrasena());
-        usuarioAux.setCorreo(getSelected().getCorreo());
-        
-        loggedUser = getEjbFacade().loginWeb(usuarioAux);
-        System.out.println(loggedUser.getRol());
-        
-        if(loggedUser !=null && loggedUser.getRol().equals("admin")){
-            return "index.xhtml";
-        }else if(loggedUser !=null && loggedUser.getRol().equals("user")){
-            return "indexUser.xhtml";
-        }else{
-            return "login.xhtml";
-        } 
-    }
-    
-    public String logout(){
-        loggedUser = null;
-        System.out.println("dentro de logout");
-        return "login.xhtml";
-    }
-    
-    public Usuarios getLogin() {
-        if (loggedUser == null) {
-            loggedUser = new Usuarios();
+    /*@PostConstruct
+    public void init() {
+        Usuarios login = loginController.getLogin();
+        if (login == null) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            ExternalContext extContext = context.getExternalContext();
+            try {
+                ((HttpSession) extContext.getSession(false)).invalidate();
+                ((HttpServletRequest) extContext.getRequest()).logout();
+
+                extContext.redirect("login.xhtml");
+            } catch (IOException ex) {
+                System.out.println("ioe" + ex.getMessage());
+            } catch (Exception ex) {
+                System.out.println("ioe" + ex.getMessage());
+            }
         }
-        return loggedUser;
-    }
+    }*/
 
-    public void setLogin(Usuarios usuarioAux) {
-        this.usuarioAux = usuarioAux;
-    }
-    
-    public UsuariosFacade getEjbFacade() {
-        return ejbFacade;
-    }
-
-    public void setEjbFacade(UsuariosFacade ejbFacade) {
-        this.ejbFacade = ejbFacade;
-    }
-    
-    public Usuarios getSelected() {
+    public Productos getSelected() {
         if (current == null) {
-            current = new Usuarios();
+            current = new Productos();
             selectedItemIndex = -1;
         }
         return current;
     }
 
-    private UsuariosFacade getFacade() {
+    private ProductosFacade getFacade() {
         return ejbFacade;
     }
 
@@ -115,13 +98,13 @@ public class UsuariosController implements Serializable {
     }
 
     public String prepareView() {
-        current = (Usuarios) getItems().getRowData();
+        current = (Productos) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
     public String prepareCreate() {
-        current = new Usuarios();
+        current = new Productos();
         selectedItemIndex = -1;
         return "Create";
     }
@@ -129,7 +112,7 @@ public class UsuariosController implements Serializable {
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UsuariosCreated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ProductosCreated"));
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -138,7 +121,7 @@ public class UsuariosController implements Serializable {
     }
 
     public String prepareEdit() {
-        current = (Usuarios) getItems().getRowData();
+        current = (Productos) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
@@ -146,7 +129,7 @@ public class UsuariosController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UsuariosUpdated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ProductosUpdated"));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -155,7 +138,7 @@ public class UsuariosController implements Serializable {
     }
 
     public String destroy() {
-        current = (Usuarios) getItems().getRowData();
+        current = (Productos) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
@@ -179,7 +162,7 @@ public class UsuariosController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UsuariosDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ProductosDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
@@ -235,21 +218,21 @@ public class UsuariosController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    public Usuarios getUsuarios(java.lang.Integer id) {
+    public Productos getProductos(java.lang.Integer id) {
         return ejbFacade.find(id);
     }
 
-    @FacesConverter(forClass = Usuarios.class)
-    public static class UsuariosControllerConverter implements Converter {
+    @FacesConverter(forClass = Productos.class)
+    public static class ProductosControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            UsuariosController controller = (UsuariosController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "usuariosController");
-            return controller.getUsuarios(getKey(value));
+            ProductosController controller = (ProductosController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "productosController");
+            return controller.getProductos(getKey(value));
         }
 
         java.lang.Integer getKey(String value) {
@@ -269,11 +252,11 @@ public class UsuariosController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Usuarios) {
-                Usuarios o = (Usuarios) object;
+            if (object instanceof Productos) {
+                Productos o = (Productos) object;
                 return getStringKey(o.getId());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Usuarios.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Productos.class.getName());
             }
         }
 

@@ -5,20 +5,17 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title> INDEX ADMIN </title>
+        <title> INDEX USER </title>
         <h:outputStylesheet name="css/jsfcrud.css"/>
     </h:head>
     <h:body>
-        OPCIONES DE ADMINISTRADOR:
+        OPCIONES DE USUARIO:
         <br />
-        <br />
-        <div class="card">
-            <p:link outcome="/usuarios/List" value="Mostrar listado de usuarios"></p:link>
-        </div>
         <br />
         <div class="card">
             <p:link outcome="/productos/List" value="Mostrar listado de productos"></p:link>
         </div>
+        <br />
         <div style="display:flex;align-items: center;justify-content: center"> 
             <p:commandButton action="#{usuariosController.logout()}" value="Salir"></p:commandButton>
         </div>
@@ -26,4 +23,6 @@
 
 
 </html>
+
+
 
